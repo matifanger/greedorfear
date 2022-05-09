@@ -1,9 +1,40 @@
 import type { NextPage } from 'next'
+import PropTypes from 'prop-types'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import GaugeChart from 'react-gauge-chart'
 
-const Home: NextPage = () => {
+export async function getStaticProps() {
+  const getCryptoIndex = await fetch('https://api.alternative.me/fng/?limit=100').then(res => res.json())
+
+  return {
+    props: {getCryptoIndex},
+  }
+}
+
+type tData = {
+  value: string,
+  value_classification: string,
+  timestamp: string,
+  time_until_update: string,
+}
+
+type HomeProps = {
+  getCryptoIndex: {
+    name: string
+    data: tData[]
+  }
+}
+
+// 0-25 Extreme Fear
+// 25-45 Fear
+// 45-55 Neutral
+// 55-75 Greed
+// 75-100 Extreme Greed
+
+  const Home: NextPage<HomeProps> = ({getCryptoIndex}) => {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,13 +45,25 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          {getCryptoIndex.name}
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+        <div className={styles.description}>
+        <GaugeChart id="gauge-chart2" 
+        nrOfLevels={20} 
+        colors={['#5BE12C', '#F5CD19', '#EA4228']}
+        percent={0.+ parseInt(getCryptoIndex.data[0].value)} 
+        textColor="#000000"
+        formatTextValue={(value: any) => 'Extreme Fear'+value}
+      />
+              <GaugeChart id="gauge-chart2" 
+        nrOfLevels={20} 
+        colors={['#5BE12C', '#F5CD19', '#EA4228']}
+        percent={0.+ parseInt(getCryptoIndex.data[0].value)} 
+        textColor="#000000"
+        formatTextValue={(value: any) => 'Extreme Fear'+value}
+      />
+        </div>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -55,11 +98,11 @@ const Home: NextPage = () => {
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://matifanger.dev"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by Matias Fanger
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
@@ -67,6 +110,10 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
+}
+
+Home.propTypes = {
+  getCryptoIndex: PropTypes.func.isRequired,
 }
 
 export default Home
