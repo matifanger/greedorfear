@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import PropTypes from 'prop-types'
+import PropTypes, { InferProps } from 'prop-types'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import GaugeChart from 'react-gauge-chart'
@@ -7,8 +7,8 @@ import Link from 'next/link'
 import Footer from '../components/Footer'
 
 export async function getStaticProps() {
-  const getCryptoIndex = await fetch('https://api.alternative.me/fng/?limit=100').then(res => res.json())
-  const getStockIndex = await fetch('https://fear-and-greed-index.p.rapidapi.com/v1/fgi', {method: 'GET', headers: {'X-RapidAPI-Host': RAPIDAPI_HOST, 'X-RapidAPI-Key': process.env.RAPIDAPI_KEY}})
+  const getCryptoIndex: Index.Crypto = await fetch('https://api.alternative.me/fng/?limit=100').then(res => res.json())
+  const getStockIndex: Index.Stock = await fetch('https://fear-and-greed-index.p.rapidapi.com/v1/fgi', {method: 'GET', headers: {'X-RapidAPI-Host': RAPIDAPI_HOST, 'X-RapidAPI-Key': process.env.RAPIDAPI_KEY}})
   .then(res => res.json())
 
   return {
@@ -78,7 +78,7 @@ type IndexProps = {
         </h1>
 
         <div className={styles.description}>
-          Check out the greed index of the crypto currencies and stock market.
+          Check out the greed or fear index of the crypto currencies and stock market.
         </div>
 
         <div className={styles.grid}>
@@ -115,10 +115,5 @@ type IndexProps = {
     </div>
   )
 }
-
-  Home.propTypes = {
-    getCryptoIndex: PropTypes.object.isRequired,
-    getStockIndex: PropTypes.object.isRequired,
-  }
 
 export default Home
