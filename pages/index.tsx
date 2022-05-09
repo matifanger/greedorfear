@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import PropTypes, { InferProps } from 'prop-types'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import GaugeChart from 'react-gauge-chart'
@@ -67,7 +66,7 @@ type IndexProps = {
     <div className={styles.container}>
       <Head>
         <title>Fear and Greed Index</title>
-        <meta name="description" content="Check out the greed index of the crypto currencies and stock market." />
+        <meta name="description" content="Check out the greed and fear index of the crypto currencies and stock market." />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
@@ -78,7 +77,7 @@ type IndexProps = {
         </h1>
 
         <div className={styles.description}>
-          Check out the greed or fear index of the crypto currencies and stock market.
+          Check out the greed and fear index of the crypto currencies and stock market.
         </div>
 
         <div className={styles.grid}>

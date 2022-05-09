@@ -1,7 +1,3 @@
-</p><h1 align="center">Greed or Fear</h1>
-
-# MAIN PAGE
-
 <p align="center">
 <img src=".github/main.png"></img>
 </p>
@@ -12,4 +8,4 @@
 
 # Description
 
-Sve your bookmarks in the cloud
+Check out the greed and fear index of the crypto currencies and stock market.
