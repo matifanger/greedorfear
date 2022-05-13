@@ -77,7 +77,7 @@ type IndexProps = {
         </h1>
 
         <div className={styles.description}>
-          Check out the greed and fear index of the crypto currencies and stock market.
+        Check if the market is a sentimentally greedy or fearful index of cryptocurrencies and the stock market.
         </div>
 
         <div className={styles.grid}>
