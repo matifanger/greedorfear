@@ -84,7 +84,7 @@ type IndexProps = {
         <Link href="https://edition.cnn.com/markets/fear-and-greed">
           <a target="_blank" className={styles.card}>
           <h2>Stock &rarr;</h2>
-          <GaugeChart id="gauge-chart2" 
+          <GaugeChart id="stock-chart" 
         nrOfLevels={20} 
         colors={['#EA4228', '#F5CD19', '#5BE12C']}
         percent={getStockIndex.fgi.now.value/100} 
@@ -98,7 +98,7 @@ type IndexProps = {
           <Link href="https://alternative.me/crypto/fear-and-greed-index/">
           <a target="_blank" className={styles.card}>
           <h2>Crypto &rarr;</h2>
-          <GaugeChart id="gauge-chart2" 
+          <GaugeChart id="crypto-chart" 
             nrOfLevels={20} 
             colors={['#EA4228', '#F5CD19', '#5BE12C']}
             percent={parseInt(getCryptoIndex.data[0].value)/100} 
