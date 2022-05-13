@@ -49,12 +49,12 @@
 }
 
 .description {
-  margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
 }
 
 .grid {
+  margin: 4rem 0;
   display: flex;
   align-items: center;
   justify-content: center;

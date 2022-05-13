@@ -73,7 +73,7 @@ type IndexProps = {
       <main className={styles.main}>
 
         <h1 className={styles.title}>
-          {getCryptoIndex.name}
+          Fear and Greed
         </h1>
 
         <div className={styles.description}>
@@ -81,33 +81,33 @@ type IndexProps = {
         </div>
 
         <div className={styles.grid}>
-        <Link href="https://edition.cnn.com/markets/fear-and-greed">
-          <a target="_blank" className={styles.card}>
-          <h2>Stock &rarr;</h2>
-          <GaugeChart id="stock-chart" 
-        nrOfLevels={20} 
-        colors={['#EA4228', '#F5CD19', '#5BE12C']}
-        percent={getStockIndex.fgi.now.value/100} 
-        textColor="#000000"
-        formatTextValue={() => getStockIndex.fgi.now.valueText+ ' ('+getStockIndex.fgi.now.value+')'}
-      />
-          </a>
-          </Link>
-          
+          <Link href="https://edition.cnn.com/markets/fear-and-greed">
+            <a target="_blank" className={styles.card}>
+            <h2>Stock &rarr;</h2>
+            <GaugeChart id="stock-chart" 
+          nrOfLevels={20} 
+          colors={['#EA4228', '#F5CD19', '#5BE12C']}
+          percent={getStockIndex.fgi.now.value/100} 
+          textColor="#000000"
+          formatTextValue={() => getStockIndex.fgi.now.valueText+ ' ('+getStockIndex.fgi.now.value+')'}
+        />
+            </a>
+            </Link>
+            
 
-          <Link href="https://alternative.me/crypto/fear-and-greed-index/">
-          <a target="_blank" className={styles.card}>
-          <h2>Crypto &rarr;</h2>
-          <GaugeChart id="crypto-chart" 
-            nrOfLevels={20} 
-            colors={['#EA4228', '#F5CD19', '#5BE12C']}
-            percent={parseInt(getCryptoIndex.data[0].value)/100} 
-            textColor="#000000"
-            formatTextValue={() => getCryptoIndex.data[0].value_classification +' ('+getCryptoIndex.data[0].value+')'}
-          />
-          </a>
-          
-          </Link>
+            <Link href="https://alternative.me/crypto/fear-and-greed-index/">
+            <a target="_blank" className={styles.card}>
+            <h2>Crypto &rarr;</h2>
+            <GaugeChart id="crypto-chart" 
+              nrOfLevels={20} 
+              colors={['#EA4228', '#F5CD19', '#5BE12C']}
+              percent={parseInt(getCryptoIndex.data[0].value)/100} 
+              textColor="#000000"
+              formatTextValue={() => getCryptoIndex.data[0].value_classification +' ('+getCryptoIndex.data[0].value+')'}
+            />
+            </a>
+            
+            </Link>
         </div>
       </main>
       <Footer />
