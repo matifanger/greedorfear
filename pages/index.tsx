@@ -5,7 +5,7 @@ import GaugeChart from 'react-gauge-chart'
 import Link from 'next/link'
 import Footer from '../components/Footer'
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const getCryptoIndex: Index.Crypto = await fetch('https://api.alternative.me/fng/?limit=100').then(res => res.json())
   const getStockIndex: Index.Stock = await fetch('https://fear-and-greed-index.p.rapidapi.com/v1/fgi', {method: 'GET', headers: {'X-RapidAPI-Host': RAPIDAPI_HOST, 'X-RapidAPI-Key': process.env.RAPIDAPI_KEY}})
   .then(res => res.json())
