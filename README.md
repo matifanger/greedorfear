@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./github/main.png?"></img>
+<img src=".github/main.png"></img>
 </p>
 
 # TRY IT 🚀
