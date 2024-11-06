@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { NextApiRequest, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Footer from '../components/Footer'
@@ -48,8 +48,9 @@ namespace Index {
 }
 
 type IndexProps = {
-  getCryptoIndex: Index.Crypto
-  getStockIndex: Index.Stock
+  getCryptoIndex?: Index.Crypto
+  getStockIndex?: Index.Stock
+  error?: string
 }
 
 const IndexCard = ({ title, href, value, text }: { title: string; href: string; value: number; text: string }) => (
@@ -82,18 +83,37 @@ const IndexCard = ({ title, href, value, text }: { title: string; href: string; 
   </Link>
 );
 
-export const getServerSideProps = async () => {
-  const [getCryptoIndex, getStockIndex] = await Promise.all([
-    fetch('https://api.alternative.me/fng/?limit=100').then(res => res.json()),
-    fetch('https://fear-and-greed-index.p.rapidapi.com/v1/fgi', {
-      headers: {
-        'X-RapidAPI-Host': RAPIDAPI_HOST,
-        'X-RapidAPI-Key': process.env.RAPIDAPI_KEY
-      }
-    }).then(res => res.json())
-  ])
+export const getServerSideProps = async ({ req }: { req: NextApiRequest }) => {
+  try {
+    // Determine the base URL based on the request
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+    const baseUrl = `${protocol}://${req.headers.host}`
+    
+    const response = await fetch(`${baseUrl}/api/market-data`)
+    if (!response.ok) {
+      throw new Error('Failed to fetch market data')
+    }
+    
+    const { cryptoIndex, stockIndex } = await response.json()
 
-  return { props: { getCryptoIndex, getStockIndex } }
+    if (!cryptoIndex?.data || !stockIndex?.fgi) {
+      throw new Error('Invalid data structure received')
+    }
+
+    return { 
+      props: { 
+        getCryptoIndex: cryptoIndex, 
+        getStockIndex: stockIndex 
+      } 
+    }
+  } catch (error) {
+    console.error('Error fetching market data:', error)
+    return {
+      props: {
+        error: 'Unable to load market data. Please try again later.'
+      }
+    }
+  }
 }
 
 const formatDate = (dateString: string) => {
@@ -347,7 +367,24 @@ const SeoContent = () => (
   </div>
 );
 
-const Home: NextPage<IndexProps> = ({ getCryptoIndex, getStockIndex }) => {
+const Home: NextPage<IndexProps> = ({ getCryptoIndex, getStockIndex, error }) => {
+  if (error || !getCryptoIndex?.data?.[0] || !getStockIndex?.fgi) {
+    return (
+      <div className="min-h-screen grid-bg">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black opacity-90"></div>
+        <main className="relative max-w-7xl mx-auto px-6 py-20">
+          <h1 className="text-6xl font-bold text-center mb-6 flex items-center justify-center gap-4">
+            <IoRocketSharp className="text-neon-blue text-5xl animate-pulse" />
+            <span className="text-gradient animate-pulse-slow">Greed Or Fear</span>
+          </h1>
+          <p className="text-xl text-center text-white/70 mb-16">
+            {error || 'Loading market data...'}
+          </p>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen grid-bg">
       <Head>

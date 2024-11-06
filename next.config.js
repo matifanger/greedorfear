@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
+  env: {
+    RAPIDAPI_HOST: process.env.RAPIDAPI_HOST,
+    RAPIDAPI_KEY: process.env.RAPIDAPI_KEY,
+  },
 }
-
-module.exports = nextConfig
