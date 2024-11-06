@@ -4,7 +4,7 @@
 
 # TRY IT 🚀
 
-[Website](https://protected-bookmarks.netlify.app/)
+[Website](https://greedorfear.netlify.app/)
 
 # Description
 
