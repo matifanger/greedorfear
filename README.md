@@ -8,4 +8,6 @@
 
 # Description
 
+Real-time sentiment analysis for smarter trading decisions.
+
 Check out the greed and fear index of the crypto currencies and stock market.
